@@ -168,6 +168,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
         render() {
             const element = document.createElement('div');
+            // static class
             if (this.classes.length === 0) {
                 this.class = 'menu__item';
                 element.classList.add(this.class);
