@@ -290,8 +290,9 @@ window.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => console.log(data));
 
-    // slider 
+    // slider  add dots
     const slides = document.querySelectorAll('.offer__slide'),
+          slider = document.querySelector('.offer__slider'),
           prev = document.querySelector('.offer__slider-prev'),
           next = document.querySelector('.offer__slider-next'),
           total = document.querySelector('#total'),
@@ -327,15 +328,59 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    slider.style.position = 'relative';
+
+    const dots = document.createElement('ol'),
+          dotts = [];
+    dots.classList.add('carousel-indicators');
+    slider.append(dots);
+
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('li');
+        dot.setAttribute('data-slide-to', i + 1);
+        dot.classList.add('dot');
+        if (i == 0) {
+            dot.style.opacity = '1';
+        }
+        dots.append(dot);
+        dotts.push(dot);
+    }
+
     function plusSlides(n) {
         showSlides(slideIndex += n);
     }
 
     prev.addEventListener('click', () => {
         plusSlides(-1);
+        dotts.forEach(dot => {
+            dot.style.opacity = '.5';
+        })
+        dotts[slideIndex - 1].style.opacity = 1;
     });
 
     next.addEventListener('click', () => {
         plusSlides(1);
+        dotts.forEach(dot => {
+            dot.style.opacity = '.5';
+        })
+        dotts[slideIndex - 1].style.opacity = 1;
     });
+
+    dotts.forEach(dot => {
+        dot.addEventListener('clcik', (event) => {
+            const slideTo = event.target.getAttribute('data-slide-to');
+
+            if (slides.length < 10) {
+                current.textContent = `0${slideIndex}`;
+            } else {
+                current.textContent = slideIndex;
+            }
+            
+            dotts.forEach(dot => {
+                dot.style.opacity = '.5';
+            })
+            dotts[slideIndex - 1].style.opacity = 1;
+
+        });
+    })
 });
