@@ -1,7 +1,8 @@
 // send data on server "Forms"
-function forms() {
+import { openModal, closeModal } from "./modal";
+function forms(formSelector, modalTimerId) {
 
-    const forms = document.querySelectorAll("form");
+    const forms = document.querySelectorAll(formSelector);
 
     const message = {
         loading: 'icons/spinner.svg',
@@ -63,7 +64,7 @@ function forms() {
         const prevModalDialog = document.querySelector('.modal__dialog');
 
         prevModalDialog.classList.add('hide');
-        openModal();
+        openModal('.modal', modalTimerId);
 
         const thanksModal = document.createElement('div');
         thanksModal.classList.add('modal__dialog');
@@ -78,7 +79,7 @@ function forms() {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 4000);
     }
 
@@ -86,4 +87,4 @@ function forms() {
         .then(response => response.json())
         .then(data => console.log(data));
 }
-module.exports = forms;
+export default  forms;
