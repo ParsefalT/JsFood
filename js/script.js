@@ -15,4 +15,5 @@ window.addEventListener('DOMContentLoaded', function() {
     calc();
     forms("form", modalTimer);
     slider();
+    // npx json-server https://p1xelst.github.io/dist/projects/food/db.json 
 });
